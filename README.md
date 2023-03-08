@@ -3,12 +3,12 @@
 [![Build Status](https://img.shields.io/badge/Build-ZhiQinlsZhen-red)](https://github.com/ZhiQinIsZhen/spring-security-demo)
 ![Maven](https://img.shields.io/maven-central/v/org.apache.dubbo/dubbo.svg)
 ![License](https://img.shields.io/github/license/alibaba/dubbo.svg)
-![Springboot Version](https://img.shields.io/badge/Springboot-2.7.1-brightgreen)
+![Springboot Version](https://img.shields.io/badge/Springboot-2.7.9-brightgreen)
 ![Device Version](https://img.shields.io/badge/Device-1.1.5.RELEASE-brightgreen)
 ![SpringJwt Version](https://img.shields.io/badge/SpringJwt-1.1.1.RELEASE-brightgreen)
 ![Device Version](https://img.shields.io/badge/jjwt-0.9.1-brightgreen)
-![Dubbo Version](https://img.shields.io/badge/Dubbo-3.0.10-brightgreen)
-![Mybatis-plus Version](https://img.shields.io/badge/MybatisPlus-3.5.2-brightgreen)
+![Dubbo Version](https://img.shields.io/badge/Dubbo-3.1.7-brightgreen)
+![Mybatis-plus Version](https://img.shields.io/badge/MybatisPlus-3.5.3.1-brightgreen)
 ![Swagger Version](https://img.shields.io/badge/knife4j-2.0.9-brightgreen)
 
 ---
