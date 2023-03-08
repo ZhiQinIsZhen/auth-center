@@ -1,4 +1,4 @@
-package com.lyz.auth.common.remote.exception;
+package com.lyz.auth.common.dao.common.remote.exception;
 
 /**
  * Desc:Base interface

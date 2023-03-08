@@ -1,4 +1,4 @@
-package com.lyz.auth.common.util;
+package com.lyz.auth.common.dao.common.util;
 
 import lombok.Getter;
 import lombok.Setter;

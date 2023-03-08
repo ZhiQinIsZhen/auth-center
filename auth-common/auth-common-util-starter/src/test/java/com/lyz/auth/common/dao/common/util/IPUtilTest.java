@@ -1,4 +1,4 @@
-package com.lyz.auth.common.util;
+package com.lyz.auth.common.dao.common.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

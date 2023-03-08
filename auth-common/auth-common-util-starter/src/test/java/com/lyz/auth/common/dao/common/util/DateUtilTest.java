@@ -1,4 +1,5 @@
-package com.lyz.auth.common.util;
+package com.lyz.auth.common.dao.common.util;
+
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -11,17 +12,16 @@ import org.springframework.test.context.junit4.SpringRunner;
  *
  * @author lyz
  * @version 1.0.0
- * @date 2023/3/8 15:18
+ * @date 2023/3/8 14:37
  */
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {TestUtil.class})
-public class PatternUtilTest {
-
+public class DateUtilTest {
 
     @Test
     public void test() {
-        String email = "liyangzhen0114@foxmail.com";
-        log.info("is email : {}", PatternUtil.matchEmail(email));
+        String firstDay = DateUtil.formatDate(DateUtil.firstDayOfMonth(DateUtil.currentDate()));
+        log.info("firstDay : {}", firstDay);
     }
 }

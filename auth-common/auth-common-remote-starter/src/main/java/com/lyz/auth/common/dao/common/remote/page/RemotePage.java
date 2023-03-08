@@ -1,4 +1,4 @@
-package com.lyz.auth.common.remote.page;
+package com.lyz.auth.common.dao.common.remote.page;
 
 import lombok.Getter;
 import lombok.Setter;
