@@ -101,6 +101,32 @@
                 <artifactId>knife4j-spring-boot-starter</artifactId>
                 <version>${github.knife4j.version}</version>
             </dependency>
+            <!-- common -->
+            <dependency>
+                <groupId>com.lyz.auth</groupId>
+                <artifactId>auth-common-util-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lyz.auth</groupId>
+                <artifactId>auth-common-remote-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lyz.auth</groupId>
+                <artifactId>auth-common-dao-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lyz.auth</groupId>
+                <artifactId>auth-common-biz-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lyz.auth</groupId>
+                <artifactId>auth-common-controller-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

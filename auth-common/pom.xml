@@ -17,6 +17,7 @@
         <module>auth-common-remote-starter</module>
         <module>auth-common-dao-starter</module>
         <module>auth-common-biz-starter</module>
+        <module>auth-common-controller-starter</module>
     </modules>
 
 </project>
