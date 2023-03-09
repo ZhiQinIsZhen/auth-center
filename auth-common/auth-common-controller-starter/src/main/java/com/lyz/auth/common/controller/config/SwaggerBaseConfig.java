@@ -27,7 +27,7 @@ public class SwaggerBaseConfig {
     public ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("统一认证中心-接口文档")
-                .description("一个基于Dubbo、Spring-security、JWT登陆注册的分布式的统一认证中心项目")
+                .description("一个基于Dubbo、Spring-security、JWT登录注册的分布式的统一认证中心项目")
                 .termsOfServiceUrl("http://127.0.0.1:7070/")
                 .contact(new Contact("lyz", "https://github.com/ZhiQinIsZhen/auth-center", "liyangzhen0114@foxmail.com"))
                 .version("1.0.0")

@@ -13,6 +13,7 @@
         <module>auth-dependencies-bom</module>
         <module>auth-common</module>
         <module>auth-api</module>
+        <module>auth-service</module>
     </modules>
 
     <properties>

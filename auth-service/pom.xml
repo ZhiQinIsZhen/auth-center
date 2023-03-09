@@ -9,16 +9,11 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>auth-common</artifactId>
+    <artifactId>auth-service</artifactId>
     <packaging>pom</packaging>
 
     <modules>
-        <module>auth-common-util-starter</module>
-        <module>auth-common-remote-starter</module>
-        <module>auth-common-dao-starter</module>
-        <module>auth-common-biz-starter</module>
-        <module>auth-common-controller-starter</module>
-        <module>auth-security-client-starter</module>
+        <module>auth-service-authentication</module>
     </modules>
 
 </project>
