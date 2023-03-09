@@ -1,0 +1,2 @@
+remoteServiceExceptionFilter=com.lyz.auth.common.biz.filter.RemoteServiceExceptionFilter
+remoteGenericFilter=com.lyz.auth.common.biz.filter.RemoteGenericFilter
