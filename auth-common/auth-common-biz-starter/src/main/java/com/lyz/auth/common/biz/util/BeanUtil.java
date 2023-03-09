@@ -1,17 +1,21 @@
 package com.lyz.auth.common.biz.util;
 
+import cn.hutool.core.util.ReflectUtil;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.lyz.auth.common.biz.cglib.SimpleBeanCopier;
 import com.lyz.auth.common.biz.constant.CommonBizConstant;
 import com.lyz.auth.common.remote.page.RemotePage;
 import lombok.experimental.UtilityClass;
+import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -158,6 +162,29 @@ public class BeanUtil {
                 pageSource.getPageSize(),
                 pageSource.isHasNextPage()
         );
+    }
+
+    /**
+     * MAP转化为对应的实体类
+     *
+     * @param map
+     * @param targetClass
+     * @return
+     * @param <T>
+     */
+    public static <T> T mapToBean(Map<String, Object> map, Class<T> targetClass) {
+        if (Objects.isNull(map)) {
+            return null;
+        }
+        T result = ReflectUtil.newInstance(targetClass);
+        Map<String, Field> fieldMap = ReflectUtil.getFieldMap(targetClass);
+        fieldMap.forEach((k, v) -> {
+            Object value;
+            if (map.containsKey(k) && Objects.nonNull(value = map.get(k))) {
+                ReflectUtil.setFieldValue(result, v, value);
+            }
+        });
+        return result;
     }
 
     /**

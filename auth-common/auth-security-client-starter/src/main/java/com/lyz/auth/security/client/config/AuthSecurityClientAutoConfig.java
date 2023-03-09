@@ -8,6 +8,7 @@ import com.lyz.auth.service.authentication.remote.RemoteAuthenticationService;
 import com.lyz.auth.service.authentication.remote.RemoteJwtParseService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
@@ -36,7 +37,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @ComponentScan(value = {"com.lyz.auth.security.client"})
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class AuthSecurityClientAutoConfig implements EnvironmentAware {
+public class AuthSecurityClientAutoConfig implements EnvironmentAware, InitializingBean {
 
     private Environment environment;
 
@@ -94,5 +95,10 @@ public class AuthSecurityClientAutoConfig implements EnvironmentAware {
     @Bean("remoteJwtParseService-auth")
     public RemoteJwtParseService remoteJwtParseService() {
         return remoteJwtParseService;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        log.info("auth security client auto config ...");
     }
 }

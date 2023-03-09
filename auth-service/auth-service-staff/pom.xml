@@ -5,16 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.lyz.auth</groupId>
-        <artifactId>auth-center</artifactId>
+        <artifactId>auth-service</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>auth-service</artifactId>
+    <artifactId>auth-service-staff</artifactId>
     <packaging>pom</packaging>
 
-    <modules>
-        <module>auth-service-authentication</module>
-        <module>auth-service-staff</module>
-    </modules>
+
 
 </project>

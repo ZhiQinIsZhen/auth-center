@@ -17,6 +17,7 @@
         <token.jwt.version>0.9.1</token.jwt.version>
         <google.guava.version>31.1-jre</google.guava.version>
         <cglib.version>3.3.0</cglib.version>
+        <hutool.version>5.8.14</hutool.version>
         <mybatis.plus.version>3.5.2</mybatis.plus.version>
         <github.knife4j.version>2.0.9</github.knife4j.version>
 
@@ -84,6 +85,11 @@
                 <artifactId>cglib</artifactId>
                 <version>${cglib.version}</version>
             </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
             <!-- dao -->
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -125,6 +131,11 @@
             <dependency>
                 <groupId>com.lyz.auth</groupId>
                 <artifactId>auth-common-controller-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lyz.auth</groupId>
+                <artifactId>auth-security-client-starter</artifactId>
                 <version>${revision}</version>
             </dependency>
         </dependencies>
