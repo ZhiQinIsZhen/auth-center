@@ -1,9 +1,12 @@
 package com.lyz.auth.common.controller.config;
 
 import com.github.xiaoymin.knife4j.spring.extension.OpenApiExtensionResolver;
+import com.google.common.collect.Sets;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
+
+import java.util.Set;
 
 /**
  * Desc:swagger base config
@@ -15,6 +18,7 @@ import springfox.documentation.service.Contact;
 public class SwaggerBaseConfig {
 
     protected final OpenApiExtensionResolver openApiExtensionResolver;
+    protected final static Set<String> PROTOCOL = Sets.newHashSet("https", "http");
 
     public SwaggerBaseConfig(OpenApiExtensionResolver openApiExtensionResolver) {
         this.openApiExtensionResolver = openApiExtensionResolver;

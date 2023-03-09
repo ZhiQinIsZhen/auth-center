@@ -12,6 +12,7 @@
     <modules>
         <module>auth-dependencies-bom</module>
         <module>auth-common</module>
+        <module>auth-api</module>
     </modules>
 
     <properties>
