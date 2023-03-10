@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerIntercep
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.lyz.auth.common.dao.handler.MybatisPlusMetaObjectHandler;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,6 +17,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2023/3/8 16:09
  */
 @Configuration
+@MapperScan(basePackages = {"com.lyz.auth.service.*.dao"})
 public class MybatisPlusAutoConfig {
 
     /**

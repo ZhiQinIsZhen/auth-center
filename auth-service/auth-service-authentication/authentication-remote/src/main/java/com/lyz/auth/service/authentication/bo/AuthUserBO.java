@@ -91,6 +91,11 @@ public class AuthUserBO implements Serializable {
     private List<Integer> roleIds;
 
     /**
+     * 注册时间
+     */
+    private Date registryTime;
+
+    /**
      * token
      */
     private String token;

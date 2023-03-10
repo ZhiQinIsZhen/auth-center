@@ -1,21 +1,19 @@
 package com.lyz.auth.common.biz.util;
 
 import cn.hutool.core.util.ReflectUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.lyz.auth.common.biz.cglib.SimpleBeanCopier;
 import com.lyz.auth.common.biz.constant.CommonBizConstant;
 import com.lyz.auth.common.remote.page.RemotePage;
 import lombok.experimental.UtilityClass;
-import org.springframework.beans.BeanUtils;
-import org.springframework.util.CollectionUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -144,23 +142,50 @@ public class BeanUtil {
         if (pageSource == null) {
             return null;
         }
-        if (pageSource.getTotal() == 0 || CollectionUtils.isEmpty(pageSource.getList())) {
-            return new RemotePage<>(
-                    Lists.newArrayList(),
-                    pageSource.getTotal(),
-                    pageSource.getPages(),
-                    pageSource.getPageNum(),
-                    pageSource.getPageSize(),
-                    pageSource.isHasNextPage()
-            );
-        }
         return new RemotePage<>(
-                pageSource.getList().stream().map(source -> copyProperties(source, targetClass, ext)).collect(Collectors.toList()),
+                copyProperties(pageSource.getList(), targetClass, ext),
                 pageSource.getTotal(),
                 pageSource.getPages(),
                 pageSource.getPageNum(),
                 pageSource.getPageSize(),
                 pageSource.isHasNextPage()
+        );
+    }
+
+    /**
+     * 分页对象拷贝
+     *
+     * @param pageSource
+     * @param targetClass
+     * @return
+     * @param <S>
+     * @param <T>
+     */
+    public static <S, T> RemotePage<T> copyProperties(Page<S> pageSource, Class<T> targetClass) {
+        return copyProperties(pageSource, targetClass, (BiConsumer<S, T>) null);
+    }
+
+    /**
+     * 分页对象拷贝
+     *
+     * @param pageSource
+     * @param targetClass
+     * @param ext
+     * @return
+     * @param <S>
+     * @param <T>
+     */
+    public static <S, T> RemotePage<T> copyProperties(Page<S> pageSource, Class<T> targetClass, BiConsumer<S, T> ext) {
+        if (pageSource == null) {
+            return null;
+        }
+        return new RemotePage<>(
+                copyProperties(pageSource.getRecords(), targetClass, ext),
+                pageSource.getTotal(),
+                pageSource.getPages(),
+                pageSource.getCurrent(),
+                pageSource.getSize(),
+                pageSource.hasNext()
         );
     }
 

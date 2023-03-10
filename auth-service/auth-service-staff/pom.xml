@@ -12,6 +12,9 @@
     <artifactId>auth-service-staff</artifactId>
     <packaging>pom</packaging>
 
-
-
+    <modules>
+        <module>staff-remote</module>
+        <module>staff-dao</module>
+        <module>staff-biz</module>
+    </modules>
 </project>

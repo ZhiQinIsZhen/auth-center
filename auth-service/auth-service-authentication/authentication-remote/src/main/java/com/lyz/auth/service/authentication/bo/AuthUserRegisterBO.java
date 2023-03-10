@@ -25,9 +25,19 @@ public class AuthUserRegisterBO implements Serializable {
     private String nickName;
 
     /**
-     * 用户名
+     * 用户真实名称
      */
-    private String username;
+    private String realName;
+
+    /**
+     * 用户手机号码
+     */
+    private String mobile;
+
+    /**
+     * 用户邮箱地址
+     */
+    private String email;
 
     /**
      * 密码
