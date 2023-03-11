@@ -15,9 +15,9 @@ import lombok.Getter;
 public enum GenericServiceMethod {
 
     REGISTRY("registry", "注册"),
-    LOGIN("login", "登陆"),
+    LOGIN("login", "登录"),
     LOGOUT("logout", "登出"),
-    LOAD_BY_USERNAME("loadByUsername", "根据登陆名查询用户信息"),
+    LOAD_BY_USERNAME("loadByUsername", "根据登录名查询用户信息"),
     AUTHORITIES("authorities", "获取权限"),
     ;
 

@@ -28,7 +28,7 @@ public class AuthUserLogoutBO implements Serializable {
      * 登录类型
      * @see com.lyz.auth.service.authentication.constant.LoginType
      */
-    private Integer loginType;
+    private Integer logoutType;
 
     /**
      * 登出设备

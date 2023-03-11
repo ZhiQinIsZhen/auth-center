@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 public interface RemoteStaffLoginLogService {
 
     /**
-     * 根据staffId分页查询登陆日志
+     * 根据staffId分页查询登录日志
      *
      * @param staffId
      * @param pageBO

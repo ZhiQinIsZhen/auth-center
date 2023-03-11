@@ -3,6 +3,7 @@ package com.lyz.auth.api.admin.controller.test;
 import com.lyz.auth.api.admin.event.test.TestHelloEvent;
 import com.lyz.auth.common.controller.result.Result;
 import com.lyz.auth.common.util.DateUtil;
+import com.lyz.auth.security.client.annotation.Anonymous;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -28,6 +29,7 @@ import javax.annotation.Resource;
         @ApiResponse(code = 1, message = "失败")
 })
 @Slf4j
+@Anonymous
 @RestController
 @RequestMapping("/test")
 public class TestController {

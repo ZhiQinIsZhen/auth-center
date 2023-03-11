@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -19,8 +20,14 @@ public class BasePageDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "页码")
+    @NotNull(groups = {PageQuery.class}, message = "分页查询页码不能为空")
     private Long pageNum = 1L;
 
     @ApiModelProperty(value = "每页数量")
+    @NotNull(groups = {PageQuery.class}, message = "分页查询每页数量不能为空")
     private Long pageSize = 10L;
+
+    public interface PageQuery {}
+
+    public interface Query {}
 }

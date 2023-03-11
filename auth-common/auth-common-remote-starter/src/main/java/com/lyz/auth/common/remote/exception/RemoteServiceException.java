@@ -12,6 +12,10 @@ import lombok.Getter;
 public class RemoteServiceException extends RuntimeException{
     private static final long serialVersionUID = 1L;
 
+    public RemoteServiceException() {
+        this(CommonExceptionCodeEnum.FAIL);
+    }
+
     public RemoteServiceException(IExceptionService codeService) {
         super(codeService.getMessage());
         this.code = codeService.getCode();

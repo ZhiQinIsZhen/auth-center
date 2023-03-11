@@ -41,24 +41,24 @@ CREATE TABLE `staff_login_log` (
                                   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
                                   `staff_id` bigint(20) unsigned NOT NULL COMMENT '员工ID',
                                   `login_type` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '登录方式：1:手机;2:邮箱',
-                                  `device` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '登陆设备：1:手机;2:web',
-                                  `login_time` timestamp NOT NULL COMMENT '登陆时间',
-                                  `login_ip` varchar(256) DEFAULT NULL COMMENT '登陆IP地址',
+                                  `device` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '登录设备：1:手机;2:web',
+                                  `login_time` timestamp NOT NULL COMMENT '登录时间',
+                                  `login_ip` varchar(256) DEFAULT NULL COMMENT '登录IP地址',
                                   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
                                   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
                                   `is_deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除 | 0、未删除 1、已删除',
                                   `version` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '版本号',
                                   PRIMARY KEY (`id`) USING BTREE,
                                   KEY `idx_staff_id` (`staff_id`) USING BTREE
-                              ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='员工登陆日志表';
+                              ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='员工登录日志表';
 
 CREATE TABLE `staff_logout_log` (
                                    `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
                                    `staff_id` bigint(20) unsigned NOT NULL COMMENT '员工ID',
                                    `logout_type` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '登出方式：1:手机;2:邮箱',
-                                   `device` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '登陆设备：1:手机;2:web',
-                                   `logout_time` timestamp NOT NULL COMMENT '登陆时间',
-                                   `logout_ip` varchar(256) DEFAULT NULL COMMENT '登陆IP地址',
+                                   `device` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '登录设备：1:手机;2:web',
+                                   `logout_time` timestamp NOT NULL COMMENT '登录时间',
+                                   `logout_ip` varchar(256) DEFAULT NULL COMMENT '登录IP地址',
                                    `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
                                    `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
                                    `is_deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除 | 0、未删除 1、已删除',

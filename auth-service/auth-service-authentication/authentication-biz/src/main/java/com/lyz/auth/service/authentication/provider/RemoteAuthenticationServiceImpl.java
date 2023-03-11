@@ -110,8 +110,10 @@ public class RemoteAuthenticationServiceImpl implements RemoteAuthenticationServ
                     AuthUserBO.class,
                     genericService,
                     names.get(1), device);
-            authUser.setDevice(device);
-            authUser.setApplicationName(names.get(0));
+            if (Objects.nonNull(authUser)) {
+                authUser.setDevice(device);
+                authUser.setApplicationName(names.get(0));
+            }
             return (T) authUser;
         } finally {
             AuthGroupContext.remove();
@@ -128,14 +130,14 @@ public class RemoteAuthenticationServiceImpl implements RemoteAuthenticationServ
     @Override
     public <T extends AuthUserLoginBO> Date login(T authUserLogin) {
         if (StringUtils.isBlank(authUserLogin.getApplicationName())) {
-            log.warn("用户登陆错误，原因 : applicationName is blank");
+            log.warn("用户登录错误，原因 : applicationName is blank");
             throw new RemoteAuthServiceException(AuthExceptionCodeEnum.LOGIN_ERROR);
         }
         AuthApplicationDO authApplicationDO = authApplicationService.getOne(
                 Wrappers.lambdaQuery(AuthApplicationDO.builder().applicationName(authUserLogin.getApplicationName()).build())
         );
         if (Objects.isNull(authApplicationDO)) {
-            log.warn("登陆失败，原因没有找到对应的应用配置信息，applicationName : {}", authUserLogin.getApplicationName());
+            log.warn("登录失败，原因没有找到对应的应用配置信息，applicationName : {}", authUserLogin.getApplicationName());
             throw new RemoteAuthServiceException(AuthExceptionCodeEnum.LOGIN_ERROR);
         }
         try {

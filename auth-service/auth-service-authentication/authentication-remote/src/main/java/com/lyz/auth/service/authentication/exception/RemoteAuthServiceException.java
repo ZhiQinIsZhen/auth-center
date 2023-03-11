@@ -12,6 +12,10 @@ import com.lyz.auth.common.remote.exception.RemoteServiceException;
  */
 public class RemoteAuthServiceException extends RemoteServiceException {
 
+    public RemoteAuthServiceException() {
+        super();
+    }
+
     public RemoteAuthServiceException(IExceptionService codeService) {
         super(codeService);
     }

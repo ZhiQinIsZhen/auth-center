@@ -31,7 +31,7 @@ public class StaffLogoutLogDO extends BaseDO implements Serializable {
     private Long staffId;
 
     /**
-     * 登陆方式：1:手机;2:邮箱
+     * 登录方式：1:手机;2:邮箱
      */
     private Integer logoutType;
 

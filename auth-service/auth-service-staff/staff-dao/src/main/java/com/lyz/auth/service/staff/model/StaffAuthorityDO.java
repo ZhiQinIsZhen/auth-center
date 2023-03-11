@@ -7,6 +7,7 @@ import com.lyz.auth.common.dao.model.BaseDO;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Desc:
@@ -27,9 +28,23 @@ public class StaffAuthorityDO extends BaseDO implements Serializable {
     @TableId(type = IdType.AUTO)
     private Long id;
 
+    /**
+     * 员工ID
+     */
     private Long staffId;
 
-    private String authority;
+    /**
+     * 权限ID
+     */
+    private Integer authorityId;
 
+    /**
+     * 应用名
+     */
     private String applicationName;
+
+    /**
+     * 权限过期时间
+     */
+    private Date authorityEndTime;
 }

@@ -10,7 +10,7 @@ package com.lyz.auth.security.client.constant;
 public interface SecurityClientConstant {
 
     /**
-     * 免登陆资源
+     * 免登录资源
      */
     String[] SECURITY_IGNORE_RESOURCES = new String[] {
             "/",

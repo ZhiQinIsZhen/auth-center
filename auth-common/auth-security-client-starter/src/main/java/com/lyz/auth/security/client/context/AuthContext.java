@@ -46,10 +46,10 @@ public class AuthContext implements ApplicationContextAware, EnvironmentAware, I
     private static RemoteJwtParseService remoteJwtParseService;
     private static AuthenticationManager authenticationManager;
 
-    private static InheritableThreadLocal<AuthUserBO> innerContext;
+    private static InheritableThreadLocal<AuthUserBO> innerContext = new InheritableThreadLocal<>();
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         this.remoteAuthenticationService = applicationContext.getBean("remoteAuthenticationService-auth", RemoteAuthenticationService.class);
         this.remoteJwtParseService = applicationContext.getBean("remoteJwtParseService-auth", RemoteJwtParseService.class);
         this.authenticationManager = applicationContext.getBean("authenticationManager", AuthenticationManager.class);
@@ -107,7 +107,7 @@ public class AuthContext implements ApplicationContextAware, EnvironmentAware, I
         }
 
         /**
-         * 登陆
+         * 登录
          *
          * @param authUserLoginBO
          */
@@ -120,10 +120,8 @@ public class AuthContext implements ApplicationContextAware, EnvironmentAware, I
                     Joiner.on(CommonBizConstant.DEFAULT_JOINER).join(
                             authUserLoginBO.getDevice(),
                             authUserLoginBO.getApplicationName(),
-                            authUserLoginBO.getLoginName()
-                    ),
-                    authUserLoginBO.getLoginPwd()
-            );
+                            authUserLoginBO.getLoginName()),
+                    authUserLoginBO.getLoginPwd());
             SecurityContextHolder.getContext().setAuthentication(authenticationManager.authenticate(authentication));
             AuthUserDetails authUserDetails = (AuthUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             Date checkTime = remoteAuthenticationService.login(
@@ -133,8 +131,7 @@ public class AuthContext implements ApplicationContextAware, EnvironmentAware, I
                             .loginType(authUserLoginBO.getLoginType())
                             .device(authUserLoginBO.getDevice())
                             .loginIp(authUserLoginBO.getLoginIp())
-                            .build()
-            );
+                            .build());
             return BeanUtil.copyProperties(authUserDetails, AuthUserBO.class, (s, t) -> {
                 t.setCheckTime(checkTime);
                 t.setToken(JwtService.generateToken(t));
@@ -143,7 +140,7 @@ public class AuthContext implements ApplicationContextAware, EnvironmentAware, I
         }
 
         /**
-         * 根据登陆名查询用户信息
+         * 根据登录名查询用户信息
          *
          * @param username
          * @return
@@ -163,7 +160,7 @@ public class AuthContext implements ApplicationContextAware, EnvironmentAware, I
                 return Boolean.FALSE;
             }
             AuthUserLogoutBO authUserLogoutBO = BeanUtil.copyProperties(authUser, AuthUserLogoutBO.class, (s, t) -> {
-                t.setLoginType(PatternUtil.checkMobileEmail(s.getUsername()));
+                t.setLogoutType(PatternUtil.checkMobileEmail(s.getUsername()));
                 t.setDevice(DeviceContext.getDevice(HttpServletContext.getRequest()).getType());
                 t.setLogoutIp(HttpServletContext.getIpAddress());
             });

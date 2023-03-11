@@ -98,12 +98,12 @@ public class RemoteAuthenticationServiceImpl implements RemoteAuthenticationServ
     @Override
     public <T extends AuthUserBO> T loadByUsername(String username, Integer device) {
         AuthUserBO authUser = AuthUserBO.builder().username(username).loginType(PatternUtil.checkMobileEmail(username)).build();
-        Long userId = this.getStaffId(username, authUser);
-        if (Objects.isNull(userId)) {
+        Long staffId = this.getStaffId(username, authUser);
+        if (Objects.isNull(staffId)) {
             return null;
         }
-        StaffInfoDO staffInfoDO = staffInfoService.getById(userId);
-        authUser.setUserId(userId);
+        StaffInfoDO staffInfoDO = staffInfoService.getById(staffId);
+        authUser.setUserId(staffId);
         authUser.setEmail(staffInfoDO.getEmail());
         authUser.setMobile(staffInfoDO.getMobile());
         authUser.setRegistryTime(staffInfoDO.getRegistryTime());
@@ -111,8 +111,8 @@ public class RemoteAuthenticationServiceImpl implements RemoteAuthenticationServ
         authUser.setRealName(staffInfoDO.getRealName());
         authUser.setSalt(staffInfoDO.getSalt());
         authUser.setDevice(device);
-        Date lastLoginTime = staffLoginLogService.lastLoginTime(userId, device);
-        Date lastLogoutTime = staffLogoutLogService.lastLogoutTime(userId, device);
+        Date lastLoginTime = staffLoginLogService.lastLoginTime(staffId, device);
+        Date lastLogoutTime = staffLogoutLogService.lastLogoutTime(staffId, device);
         authUser.setCheckTime(ObjectUtils.max(lastLoginTime, lastLogoutTime));
         return (T) authUser;
     }
@@ -128,6 +128,7 @@ public class RemoteAuthenticationServiceImpl implements RemoteAuthenticationServ
     @Transactional(rollbackFor = Exception.class)
     public <T extends AuthUserLoginBO> Date login(T authUserLogin) {
         StaffLoginLogDO staffLoginLogDO = BeanUtil.copyProperties(authUserLogin, StaffLoginLogDO.class, (s, t) -> {
+            t.setStaffId(authUserLogin.getUserId());
             t.setLoginTime(DateUtil.currentDate());
         });
         staffLoginLogService.save(staffLoginLogDO);
@@ -146,6 +147,7 @@ public class RemoteAuthenticationServiceImpl implements RemoteAuthenticationServ
     @Transactional(rollbackFor = Exception.class)
     public <T extends AuthUserLogoutBO> Boolean logout(T authUserLogout) {
         StaffLogoutLogDO staffLogoutLogDO = BeanUtil.copyProperties(authUserLogout, StaffLogoutLogDO.class, (s, t) -> {
+            t.setStaffId(s.getUserId());
             t.setLogoutTime(DateUtil.currentDate());
         });
         return staffLogoutLogService.save(staffLogoutLogDO);

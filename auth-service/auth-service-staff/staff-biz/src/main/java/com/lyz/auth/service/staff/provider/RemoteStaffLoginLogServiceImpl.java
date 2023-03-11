@@ -27,7 +27,7 @@ public class RemoteStaffLoginLogServiceImpl implements RemoteStaffLoginLogServic
     private IStaffLoginLogService staffLoginLogService;
 
     /**
-     * 根据staffId分页查询登陆日志
+     * 根据staffId分页查询登录日志
      *
      * @param staffId
      * @param pageBO
@@ -36,7 +36,7 @@ public class RemoteStaffLoginLogServiceImpl implements RemoteStaffLoginLogServic
     @Override
     public RemotePage<StaffLoginLogBO> page(Long staffId, BasePageBO pageBO) {
         Page page = staffLoginLogService.page(
-                new Page<>(pageBO.getPageNum(), pageBO.getPageSize()),
+                Page.of(pageBO.getPageNum(), pageBO.getPageSize()),
                 Wrappers.lambdaQuery(StaffLoginLogDO.builder().staffId(staffId).build())
         );
         return BeanUtil.copyProperties(page, StaffLoginLogBO.class);

@@ -36,7 +36,7 @@ public class RemoteStaffLogoutLogServiceImpl implements RemoteStaffLogoutLogServ
     @Override
     public RemotePage<StaffLogoutLogBO> page(Long staffId, BasePageBO pageBO) {
         Page page = staffLogoutLogService.page(
-                new Page<>(pageBO.getPageNum(), pageBO.getPageSize()),
+                Page.of(pageBO.getPageNum(), pageBO.getPageSize()),
                 Wrappers.lambdaQuery(StaffLogoutLogDO.builder().staffId(staffId).build())
         );
         return BeanUtil.copyProperties(page, StaffLogoutLogBO.class);
