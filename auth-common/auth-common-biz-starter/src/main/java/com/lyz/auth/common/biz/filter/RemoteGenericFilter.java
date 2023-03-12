@@ -205,10 +205,10 @@ public class RemoteGenericFilter implements Filter, Filter.Listener, ScopeModelA
                 }
 
                 if (!(appException instanceof com.alibaba.dubbo.rpc.service.GenericException)) {
-                    appException = new com.alibaba.dubbo.rpc.service.GenericException((Throwable)appException);
+                    appException = new com.alibaba.dubbo.rpc.service.GenericException(appException);
                 }
 
-                appResponse.setException((Throwable)appException);
+                appResponse.setException(appException);
             }
 
             UnsafeByteArrayOutputStream os;
