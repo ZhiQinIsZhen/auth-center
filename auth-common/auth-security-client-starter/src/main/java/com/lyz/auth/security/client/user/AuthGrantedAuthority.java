@@ -27,6 +27,6 @@ public class AuthGrantedAuthority implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        return Joiner.on(CommonBizConstant.DEFAULT_JOINER).join(applicationName, authority);
+        return Joiner.on(CommonBizConstant.DEFAULT_JOINER).join(applicationName, authority).toUpperCase();
     }
 }

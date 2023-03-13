@@ -58,6 +58,19 @@ public class AdminApiSwaggerConfig extends SwaggerBaseConfig {
     }
 
     @Bean
+    public Docket authorityApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
+                .protocols(PROTOCOL)
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.lyz.auth.api.admin.controller.roleauthority"))
+                .paths(PathSelectors.any())
+                .build()
+                .extensions(openApiExtensionResolver.buildSettingExtensions())
+                .groupName("权限信息-API");
+    }
+
+    @Bean
     public Docket staffApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())

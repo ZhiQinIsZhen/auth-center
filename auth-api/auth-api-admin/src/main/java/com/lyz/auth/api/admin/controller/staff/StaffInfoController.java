@@ -52,7 +52,7 @@ public class StaffInfoController {
     @DubboReference
     private RemoteStaffLogoutLogService remoteStaffLogoutLogService;
 
-    @PreAuthorize("hasAuthority('${spring.application.name}:STAFFINFO'.toUpperCase())")
+    @PreAuthorize("hasAuthority('AUTH-API-ADMIN:STAFFINFO'.toUpperCase())")
     @ApiOperation("查询当前登录员工信息")
     @GetMapping("/current")
     @ApiImplicitParam(name = "Authorization", value = "认证token", required = true, dataType = "String",
@@ -64,7 +64,7 @@ public class StaffInfoController {
         }));
     }
 
-    @PreAuthorize("hasAuthority('${spring.application.name}:STAFFINFO'.toUpperCase())")
+    @PreAuthorize("hasAuthority('AUTH-API-ADMIN:STAFFINFO'.toUpperCase())")
     @ApiOperation("分页查询员工信息")
     @GetMapping("/page")
     @ApiImplicitParam(name = "Authorization", value = "认证token", required = true, dataType = "String",
@@ -74,7 +74,7 @@ public class StaffInfoController {
         return PageResult.success(BeanUtil.copyProperties(remotePage, StaffInfoVO.class));
     }
 
-    @PreAuthorize("hasAuthority('${spring.application.name}:STAFFLOG'.toUpperCase())")
+    @PreAuthorize("hasAuthority('AUTH-API-ADMIN:STAFFLOG'.toUpperCase())")
     @ApiOperation("分页查询员工登录日志")
     @GetMapping("/loginLogs/page")
     @ApiImplicitParam(name = "Authorization", value = "认证token", required = true, dataType = "String",
@@ -87,7 +87,7 @@ public class StaffInfoController {
         return PageResult.success(BeanUtil.copyProperties(remotePage, StaffLoginLogVO.class));
     }
 
-    @PreAuthorize("hasAuthority('${spring.application.name}:STAFFLOG'.toUpperCase())")
+    @PreAuthorize("hasAuthority('AUTH-API-ADMIN:STAFFLOG'.toUpperCase())")
     @ApiOperation("分页查询员工登出日志")
     @GetMapping("/logoutLogs/page")
     @ApiImplicitParam(name = "Authorization", value = "认证token", required = true, dataType = "String",

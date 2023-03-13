@@ -1,6 +1,6 @@
 package com.lyz.auth.service.staff.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.yulichang.base.MPJBaseService;
 import com.lyz.auth.service.staff.model.StaffInfoDO;
 
 /**
@@ -10,5 +10,5 @@ import com.lyz.auth.service.staff.model.StaffInfoDO;
  * @version 1.0.0
  * @date 2023/3/10 10:09
  */
-public interface IStaffInfoService extends IService<StaffInfoDO> {
+public interface IStaffInfoService extends MPJBaseService<StaffInfoDO> {
 }

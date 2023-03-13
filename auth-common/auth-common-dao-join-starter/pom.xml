@@ -5,33 +5,32 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.lyz.auth</groupId>
-        <artifactId>auth-service-staff</artifactId>
+        <artifactId>auth-common</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>staff-dao</artifactId>
+    <artifactId>auth-common-dao-join-starter</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.lyz.auth</groupId>
             <artifactId>auth-common-dao-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.lyz.auth</groupId>
-            <artifactId>auth-common-dao-join-starter</artifactId>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.github.yulichang</groupId>
             <artifactId>mybatis-plus-join</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.github.yulichang</groupId>
             <artifactId>mybatis-plus-join-boot-starter</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

@@ -1,6 +1,7 @@
 package com.lyz.auth.service.staff.provider.auth;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.github.yulichang.toolkit.MPJWrappers;
 import com.lyz.auth.common.biz.util.BeanUtil;
 import com.lyz.auth.common.util.DateUtil;
 import com.lyz.auth.common.util.PatternUtil;
@@ -43,6 +44,8 @@ public class RemoteAuthenticationServiceImpl implements RemoteAuthenticationServ
     private IStaffLogoutLogService staffLogoutLogService;
     @Resource
     private IStaffAuthorityService staffAuthorityService;
+    @Resource
+    private IStaffRoleService staffRoleService;
 
     /**
      * 用户注册
@@ -162,11 +165,15 @@ public class RemoteAuthenticationServiceImpl implements RemoteAuthenticationServ
      */
     @Override
     public <T extends AuthUserBO> List<AuthGrantedAuthorityBO> authorities(T authUser) {
-        List<StaffAuthorityDO> list = staffAuthorityService.list(
-                Wrappers.lambdaQuery(StaffAuthorityDO.builder().staffId(authUser.getUserId()).applicationName(authUser.getApplicationName())
-                        .build())
+        List<AuthGrantedAuthorityBO> result = staffRoleService.selectJoinList(AuthGrantedAuthorityBO.class,
+                MPJWrappers.<StaffRoleDO>lambdaJoin()
+                        .select(SystemAuthorityDO::getAuthority, SystemAuthorityDO::getApplicationName)
+                        .leftJoin(SystemRoleAuthorityDO.class, SystemRoleAuthorityDO::getRoleId, StaffRoleDO::getRoleId)
+                        .leftJoin(SystemAuthorityDO.class, SystemAuthorityDO::getAuthorityId, SystemRoleAuthorityDO::getAuthorityId)
+                        .eq(StaffRoleDO::getStaffId, authUser.getUserId())
+                        .eq(StaffRoleDO::getApplicationName, authUser.getApplicationName())
         );
-        return BeanUtil.copyProperties(list, AuthGrantedAuthorityBO.class);
+        return result;
     }
 
     /**

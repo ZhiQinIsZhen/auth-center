@@ -1,6 +1,6 @@
 package com.lyz.auth.service.staff.dao;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.github.yulichang.base.MPJBaseMapper;
 import com.lyz.auth.service.staff.model.StaffInfoDO;
 
 /**
@@ -10,5 +10,5 @@ import com.lyz.auth.service.staff.model.StaffInfoDO;
  * @version 1.0.0
  * @date 2023/3/10 10:09
  */
-public interface StaffInfoMapper extends BaseMapper<StaffInfoDO> {
+public interface StaffInfoMapper extends MPJBaseMapper<StaffInfoDO> {
 }

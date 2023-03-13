@@ -19,8 +19,8 @@
         <cglib.version>3.3.0</cglib.version>
         <hutool.version>5.8.14</hutool.version>
         <mybatis.plus.version>3.5.2</mybatis.plus.version>
+        <mybatis.plus.join.version>1.4.3.2</mybatis.plus.join.version>
         <github.knife4j.version>2.0.9</github.knife4j.version>
-
         <revision>1.0-SNAPSHOT</revision>
     </properties>
 
@@ -101,6 +101,16 @@
                 <artifactId>mybatis-plus-extension</artifactId>
                 <version>${mybatis.plus.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.github.yulichang</groupId>
+                <artifactId>mybatis-plus-join</artifactId>
+                <version>${mybatis.plus.join.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.yulichang</groupId>
+                <artifactId>mybatis-plus-join-boot-starter</artifactId>
+                <version>${mybatis.plus.join.version}</version>
+            </dependency>
             <!-- swagger -->
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
@@ -121,6 +131,11 @@
             <dependency>
                 <groupId>com.lyz.auth</groupId>
                 <artifactId>auth-common-dao-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lyz.auth</groupId>
+                <artifactId>auth-common-dao-join-starter</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
