@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.lyz.auth</groupId>
-        <artifactId>auth-service-staff</artifactId>
+        <artifactId>auth-service-user</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>staff-biz</artifactId>
+    <artifactId>user-biz</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -87,12 +87,12 @@
         </dependency>
         <dependency>
             <groupId>com.lyz.auth</groupId>
-            <artifactId>staff-dao</artifactId>
+            <artifactId>user-dao</artifactId>
             <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>com.lyz.auth</groupId>
-            <artifactId>staff-remote</artifactId>
+            <artifactId>user-remote</artifactId>
             <version>${revision}</version>
         </dependency>
         <dependency>
