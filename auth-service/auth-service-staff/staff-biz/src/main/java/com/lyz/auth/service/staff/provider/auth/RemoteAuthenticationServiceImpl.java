@@ -11,16 +11,21 @@ import com.lyz.auth.service.authentication.exception.AuthExceptionCodeEnum;
 import com.lyz.auth.service.authentication.exception.RemoteAuthServiceException;
 import com.lyz.auth.service.authentication.remote.RemoteAuthenticationService;
 import com.lyz.auth.service.staff.model.*;
+import com.lyz.auth.service.staff.model.base.StaffAuthBaseDO;
 import com.lyz.auth.service.staff.service.*;
+import com.lyz.auth.service.staff.strategy.LoginTypeService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Desc:
@@ -29,6 +34,7 @@ import java.util.Objects;
  * @version 1.0.0
  * @date 2023/3/10 11:10
  */
+@Slf4j
 @DubboService
 public class RemoteAuthenticationServiceImpl implements RemoteAuthenticationService {
 
@@ -70,21 +76,15 @@ public class RemoteAuthenticationServiceImpl implements RemoteAuthenticationServ
         });
         staffInfoService.save(staffInfoDO);
         if (StringUtils.isNotBlank(staffInfoDO.getMobile())) {
-            StaffAuthMobileDO mobileDO = StaffAuthMobileDO
-                    .builder()
-                    .staffId(staffInfoDO.getStaffId())
-                    .mobile(staffInfoDO.getMobile())
-                    .password(authUserRegister.getPassword())
-                    .build();
+            StaffAuthMobileDO mobileDO = StaffAuthMobileDO.builder().mobile(staffInfoDO.getMobile()).build();
+            mobileDO.setStaffId(staffInfoDO.getStaffId());
+            mobileDO.setPassword(authUserRegister.getPassword());
             staffAuthMobileService.save(mobileDO);
         }
         if (StringUtils.isNotBlank(staffInfoDO.getEmail())) {
-            StaffAuthEmailDO emailDO = StaffAuthEmailDO
-                    .builder()
-                    .staffId(staffInfoDO.getStaffId())
-                    .email(staffInfoDO.getEmail())
-                    .password(authUserRegister.getPassword())
-                    .build();
+            StaffAuthEmailDO emailDO = StaffAuthEmailDO.builder().email(staffInfoDO.getEmail()).build();
+            emailDO.setStaffId(staffInfoDO.getStaffId());
+            emailDO.setPassword(authUserRegister.getPassword());
             staffAuthEmailService.save(emailDO);
         }
         return Boolean.TRUE;
@@ -117,6 +117,9 @@ public class RemoteAuthenticationServiceImpl implements RemoteAuthenticationServ
         Date lastLoginTime = staffLoginLogService.lastLoginTime(staffId, device);
         Date lastLogoutTime = staffLogoutLogService.lastLogoutTime(staffId, device);
         authUser.setCheckTime(ObjectUtils.max(lastLoginTime, lastLogoutTime));
+        //查询角色信息
+        List<StaffRoleDO> roles = staffRoleService.list(Wrappers.query(StaffRoleDO.builder().staffId(staffId).build()));
+        authUser.setRoleIds(CollectionUtils.isEmpty(roles) ? null : roles.stream().map(StaffRoleDO::getRoleId).collect(Collectors.toList()));
         return (T) authUser;
     }
 
@@ -184,28 +187,22 @@ public class RemoteAuthenticationServiceImpl implements RemoteAuthenticationServ
      * @return
      */
     private Long getStaffId(String username, AuthUserBO authUser) {
-        int type = PatternUtil.checkMobileEmail(username);
-        authUser.setLoginType(type);
-        if (type == LoginType.MOBILE.getType()) {
-            StaffAuthMobileDO staffAuthMobileDO = staffAuthMobileService.getOne(
-                    Wrappers.lambdaQuery(StaffAuthMobileDO.builder().mobile(username).build())
-            );
-            if (Objects.isNull(staffAuthMobileDO)) {
-                return null;
-            }
-            authUser.setPassword(staffAuthMobileDO.getPassword());
-            return staffAuthMobileDO.getStaffId();
+        LoginType loginType = LoginType.getByType(PatternUtil.checkMobileEmail(username));
+        if (Objects.isNull(loginType)) {
+            log.warn("username is not email or mobile");
+            return null;
         }
-        if (type == LoginType.EMAIL.getType()) {
-            StaffAuthEmailDO staffAuthEmailDO = staffAuthEmailService.getOne(
-                    Wrappers.lambdaQuery(StaffAuthEmailDO.builder().email(username).build())
-            );
-            if (Objects.isNull(staffAuthEmailDO)) {
-                return null;
-            }
-            authUser.setPassword(staffAuthEmailDO.getPassword());
-            return staffAuthEmailDO.getStaffId();
+        authUser.setLoginType(loginType.getType());
+        LoginTypeService loginTypeService = LoginTypeService.LOGIN_TYPE_MAP.get(loginType);
+        if (Objects.isNull(loginTypeService)) {
+            log.warn("{} can not find LoginTypeService", loginType.name());
+            return null;
         }
-        return null;
+        StaffAuthBaseDO staffAuthBaseDO = loginTypeService.getByUsername(username);
+        if (Objects.isNull(staffAuthBaseDO)) {
+            return null;
+        }
+        authUser.setPassword(staffAuthBaseDO.getPassword());
+        return staffAuthBaseDO.getStaffId();
     }
 }

@@ -20,4 +20,13 @@ public enum LoginType {
 
     private int type;
     private String desc;
+
+    public static LoginType getByType(int type) {
+        for (LoginType loginType : LoginType.values()) {
+            if (type == loginType.type) {
+                return loginType;
+            }
+        }
+        return null;
+    }
 }

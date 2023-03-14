@@ -60,11 +60,6 @@ public class AuthUserBO implements Serializable {
     private Integer device;
 
     /**
-     * 昵称
-     */
-    private String nickname;
-
-    /**
      * 手机号码
      */
     private String mobile;
